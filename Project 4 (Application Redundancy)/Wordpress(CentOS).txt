@@ -1,0 +1,28 @@
+sudo yum install php-gd -y
+sudo yum install httpd -y
+sudo service httpd restart
+sudo yum install wget -y
+cd ~
+wget http://wordpress.org/latest.tar.gz
+tar xzvf latest.tar.gz
+sudo yum install rsync -y
+sudo rsync -avP ~/wordpress/ /var/www/html/
+mkdir /var/www/html/wp-content/uploads
+sudo chown -R apache:apache /var/www/html/*
+cd /var/www/html
+cp wp-config-sample.php wp-config.php
+vi wp-config.php
+   ###---define('DB_NAME', 'wordpress');
+   ###---define('DB_USER', 'wordpressuser');
+   ###---define('DB_PASSWORD', 'password');
+   ###---define('DB_HOST', '10.0.5.160');
+sudo yum install yum-utils –y
+sudo yum install epel-release –y
+sudo yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm -y
+sudo yum-config-manager ––enable remi–php70
+sudo yum install php php-common php-opcache php-mcrypt php-cli php-gd php-curl php-mysql –y
+sudo firewall-cmd --zone=public --permanent --add-port=80/tcp
+sudo firewall-cmd --reload
+sudo vi /etc/httpd/conf/httpd.conf
+   ###---DirectoryIndex index.php
+sudo service httpd restart
