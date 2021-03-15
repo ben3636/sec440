@@ -21,6 +21,11 @@ sudo mysql -u root -p -e "CREATE USER 'rep'@'%' IDENTIFIED BY 'Test333!@';"
 sudo mysql -u root -p -e "ALTER USER 'rep'@'%' IDENTIFIED WITH mysql_native_password BY 'Test333!@';"
 sudo mysql -u root -p -e "CREATE DATABASE wordpress DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;"
 sudo mysql -u root -p -e "GRANT REPLICATION SLAVE ON *.* TO 'rep'@'%';"
+
+## Create 'wp' User & Grant Privileges to 'wordpress' Database
+sudo mysql -u root -p -e "CREATE USER 'wp'@'%' IDENTIFIED BY 'Test333@';"
+sudo mysql -u root -p -e "ALTER USER 'wp'@'%' IDENTIFIED WITH mysql_native_password BY 'Test333@';"
+sudo mysql -u root -p -e "USE wordpress; GRANT ALL PRIVILEGES ON wordpress.* TO 'wp'@'%';"
 sudo mysql -u root -p -e "FLUSH PRIVILEGES;"
 sudo mysql -u root -p -e "SHOW MASTER STATUS;"
 
@@ -62,11 +67,6 @@ sudo mysql -u root -p -e "START SLAVE;"
 sudo mysql -u root -p -e "SHOW SLAVE STATUS\G"
 
 ############---U1/U2/U3---############
-## Create 'wp' User & Grant Privileges to 'wordpress' Database
-sudo mysql -u root -p -e "CREATE USER 'wp'@'%' IDENTIFIED BY 'Test333@';"
-sudo mysql -u root -p -e "USE wordpress; GRANT ALL PRIVILEGES ON wordpress.* TO 'wp'@'%';"
-sudo mysql -u root -p -e "FLUSH PRIVILEGES;"
-
 ## Install & Configure Keepalived
 sudo apt install keepalived -y
 sudo nano /etc/keepalived/keepalived.conf
