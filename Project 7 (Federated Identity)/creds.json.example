@@ -1,0 +1,6 @@
+{
+	"client_id":"apple",
+	"client_secret":"banana",
+	"authorization_base_url":"https://github.com/login/oauth/authorize",
+	"token_url":"https://github.com/login/oauth/access_token"
+}
